@@ -1,0 +1,16 @@
+git clone git@xxxxx/xxx.git
+git remote add origin git@xxxx.git
+git add
+git commit -m "xxx"
+git status
+git diff
+git log
+git log --pretty=oneline
+git reset --hard 6-digit revision number
+git checkout -- filename -> overrivde current file
+git branch -> show current branches
+git branch branchname -> create branch
+git checkout branchname -> switch branch
+git merge branchname
+git branch -d -> delete branch
+git log --graph
