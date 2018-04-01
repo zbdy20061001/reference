@@ -51,7 +51,7 @@ under the License.
    |
    | Default: ${user.home}/.m2/repository
   -->
-    <localRepository>F:\maven_repo</localRepository>
+    <localRepository>G:\study\maven_repo</localRepository>
 
   <!-- interactiveMode
    | This will determine whether maven prompts you when it needs input. If set to false,
@@ -129,7 +129,13 @@ under the License.
       <privateKey>/path/to/private/key</privateKey>
       <passphrase>optional; leave empty if not used.</passphrase>
     </server>
+	
     -->
+	<server>
+      <id>nexus</id>
+      <username>admin</username>
+      <password>admin123</password>
+    </server>
   </servers>
 
   <!-- mirrors
@@ -156,22 +162,31 @@ under the License.
       <url>http://my.repository.com/repo/path</url>
     </mirror>
      -->
-	       <!-- °¢ÀïÔÆ²Ö¿â -->
-      <mirror>
+	
+
+	       <!-- é˜¿é‡Œäº‘ä»“åº“ -->
+		<mirror>
            <id>alimaven</id>
-           <mirrorOf>central</mirrorOf>
+           <mirrorOf>central</mirrorOf> <!-- can set as * to wildcat -->
            <name>aliyun maven</name>
             <url>http://maven.aliyun.com/nexus/content/repositories/central/</url>
          </mirror>
+			 	       <!-- my nexus -->
+		<mirror>
+           <id>nexus</id>
+           <mirrorOf>nexus</mirrorOf>
+           <name>my nexus</name>
+            <url>http://localhost:8081/repository/maven-public/</url>
+         </mirror> 
 
-       <!-- ÖÐÑë²Ö¿â1 -->
+       <!-- ä¸­å¤®ä»“åº“1 -->
         <mirror>
             <id>repo1</id>
             <mirrorOf>central</mirrorOf>
             <name>Human Readable Name for this Mirror.</name>
             <url>http://repo1.maven.org/maven2/</url>
          </mirror>
-        <!-- ÖÐÑë²Ö¿â2 -->
+        <!-- ä¸­å¤®ä»“åº“2 -->
         <mirror>
            <id>repo2</id>
            <mirrorOf>central</mirrorOf>
@@ -232,17 +247,45 @@ under the License.
     </profile>
     -->
 	<profile>
-		<id>jdk-1.7</id>
+		<id>jdk-1.8</id>
 		<activation>
 			<activeByDefault>true</activeByDefault>
-			<jdk>1.7</jdk>
+			<jdk>1.8</jdk>
 		</activation>
 		<properties>
-			<maven.compiler.source>1.7</maven.compiler.source>
-			<maven.compiler.target>1.7</maven.compiler.target>
-			<maven.compiler.compilerVersion>1.7</maven.compiler.compilerVersion>
+			<maven.compiler.source>1.8</maven.compiler.source>
+			<maven.compiler.target>1.8</maven.compiler.target>
+			<maven.compiler.compilerVersion>1.8</maven.compiler.compilerVersion>
 		</properties>
 	</profile>
+	<profile>
+      <id>repo_config</id>
+	  <activation>
+			<activeByDefault>true</activeByDefault>
+		</activation>
+      <repositories>
+        <repository>
+          <id>central</id> <!-- override the default config in maven -->
+          <url>http://central</url> <!-- will be redirected to the Mirror with the same id if config in <mirrorOf> -->
+          <releases><enabled>true</enabled></releases>
+          <snapshots><enabled>false</enabled></snapshots>
+        </repository>
+		<repository>
+          <id>nexus</id> <!-- config own nexus server -->
+          <url>http://central</url>
+          <releases><enabled>true</enabled></releases>
+          <snapshots><enabled>true</enabled></snapshots>
+        </repository>
+      </repositories>
+     <pluginRepositories>
+        <pluginRepository>
+          <id>central</id>
+          <url>http://central</url>
+          <releases><enabled>true</enabled></releases>
+          <snapshots><enabled>false</enabled></snapshots>
+        </pluginRepository>
+      </pluginRepositories>
+    </profile>
 
     <!--
      | Here is another profile, activated by the system property 'target-env' with a value of 'dev',
@@ -287,5 +330,7 @@ under the License.
     <activeProfile>alwaysActiveProfile</activeProfile>
     <activeProfile>anotherAlwaysActiveProfile</activeProfile>
   </activeProfiles>
+  
   -->
+  
 </settings>
