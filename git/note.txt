@@ -16,3 +16,9 @@ git branch -d -> delete branch
 git log --graph
 git push origin --tags
 git config --global alias.lg "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
+
+
+* when local branch is behind remote branch, to synchronize the local
+1. git fetch -> to fetch the remote change to FETCH_HEAD, won't syn to the local yet
+2. git diff FETCH_HEAD -> to compare the differences between local and remote
+3. git pull -> pull the remote change if okay
