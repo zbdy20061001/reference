@@ -14,3 +14,4 @@ git checkout branchname -> switch branch
 git merge branchname
 git branch -d -> delete branch
 git log --graph
+git push origin --tags
